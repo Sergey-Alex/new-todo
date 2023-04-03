@@ -5,6 +5,8 @@ import {v1} from "uuid";
 
 export type FilterValueType = 'all' | 'active' | 'completed'
 
+type TodoListType = {}
+
 const App = () => {
     const tasks1 = [
         {id: v1(), title: "JS", isDone: true},
@@ -13,7 +15,10 @@ const App = () => {
         {id: v1(), title: "Rest API", isDone: false},
         {id: v1(), title: "GraphQL", isDone: false}
     ]
-
+    const [todolist, setTodolist] = useState([
+        {id: v1(), title: 'What to learn', filter: 'all'},
+        {id: v1(), title: 'What to buy', filter: 'all'},
+    ])
 
     const [tasks, setTasks] = useState(tasks1);
     const [filter, setFilter] = useState<FilterValueType>("all");
@@ -51,6 +56,7 @@ const App = () => {
                       addTask={addTask}
                       changeFilter={changeFilter}
                       changeTaskStatus = {changeTaskStatus}
+                      filter = {filter}
             />
         </div>
     );
