@@ -1,6 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import {FilterValueType, TaskType} from "./App";
 import {AddItemForm} from "./AddItemForm";
+import EditableSpan from "./EditableSpan";
 
 
 type PropsType = {
@@ -13,6 +14,8 @@ type PropsType = {
     filter: FilterValueType
     todolistId: string
     deleteTodolist: (todolistId: string) => void
+    changeTaskTitle: (todolistId: string, taskId: string, value: string) =>void
+    changeTodolistTitle: (todolistId: string, tilte: string) => void
 }
 
 
@@ -34,12 +37,18 @@ const Todolist = (props: PropsType) => {
     const addTask = (title: string) => {
         props.addTask(props.todolistId, title )
     }
+    const changeTodolistTitle = (value: string) => {
+        props.changeTodolistTitle(props.todolistId, value)
+    }
+
 
     return (
         <div>
-            <h3>{props.title}</h3>
+            <h3>
+                <EditableSpan title={props.title} onChangeValue={changeTodolistTitle}/>
+            </h3>
             <button onClick={todolistRemoveHandler}>✖️</button>
-            <AddItemForm addItemForm={addTask} />
+            <AddItemForm addItemForm={addTask}/>
             <ul>
                 {
                     props.tasks.map(task => {
@@ -47,10 +56,13 @@ const Todolist = (props: PropsType) => {
                         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
                             props.changeTaskStatus(props.todolistId, task.id, e.currentTarget.checked)
                         }
+                        const changeTaskTitle =(value: string) =>{
+                            props.changeTaskTitle(props.todolistId, task.id, value)
+                        }
 
                         return (
                             <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                {task.title}
+                                <EditableSpan title={task.title} onChangeValue={changeTaskTitle}/>
                                 <button onClick={removeHandler}>✖️</button>
                                 <input
                                     type="checkbox"
