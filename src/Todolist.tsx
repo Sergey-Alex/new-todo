@@ -63,14 +63,14 @@ const Todolist = (props: PropsType) => {
                         }
 
                         return (
-                            <li key={task.id} className={task.isDone ? 'is-done' : ''}>
+                            <span key={task.id} className={task.isDone ? 'is-done' : ''}>
                                 <EditableSpan title={task.title} onChangeValue={changeTaskTitle}/>
                                 <IconButton onClick={removeHandler}><Delete/>️</IconButton>
                                 <Checkbox
                                     color='primary'
                                     checked={task.isDone}
                                     onChange={changeTaskStatus}/>
-                            </li>
+                            </span>
                         )
                     })
                 }
