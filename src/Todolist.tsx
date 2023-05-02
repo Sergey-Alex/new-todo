@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import {FilterValueType, TaskType} from "./App";
+import {FilterValueType, TaskType} from "./AppWithRedux";
 import {AddItemForm} from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
 import {Button, Checkbox, IconButton} from '@mui/material';
@@ -11,26 +11,26 @@ type PropsType = {
     tasks: TaskType[]
     removeTask: (todolistId: string, taskId: string) => void
     addTask: (todolistId: string, value: string) => void
-    changeFilter: (filter: FilterValueType, todolistId: string) => void
+    changeFilter: (todolistId: string, filter: FilterValueType) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     filter: FilterValueType
     todolistId: string
     deleteTodolist: (todolistId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, value: string) => void
-    changeTodolistTitle: (todolistId: string, tilte: string) => void
+    changeTodolistTitle: (todolistId: string, title: string) => void
 }
 
 
 const Todolist = (props: PropsType) => {
 
     const onAllClickHandler = () => {
-        props.changeFilter('all', props.todolistId)
+        props.changeFilter(props.todolistId,'all')
     }
     const onActiveClickHandler = () => {
-        props.changeFilter('active', props.todolistId)
+        props.changeFilter(props.todolistId, 'active' )
     }
     const onCompletedClickHandler = () => {
-        props.changeFilter('completed', props.todolistId)
+        props.changeFilter( props.todolistId, 'completed')
     }
     const todolistRemoveHandler = () => {
         props.deleteTodolist(props.todolistId)
@@ -54,6 +54,7 @@ const Todolist = (props: PropsType) => {
             <ul>
                 {
                     props.tasks.map(task => {
+
                         const removeHandler = () => props.removeTask(props.todolistId, task.id)
                         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
                             props.changeTaskStatus(props.todolistId, task.id, e.currentTarget.checked)

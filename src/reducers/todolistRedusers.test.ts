@@ -1,7 +1,7 @@
 import {todolistReducers} from './todolistsReducers'
 import {v1} from 'uuid'
 import {TodoListType} from './todolistsReducers'
-import {FilterValueType} from "../App";
+import {FilterValueType} from "../AppWithRedux";
 
 let todolistId1: string
 let todolistId2: string
