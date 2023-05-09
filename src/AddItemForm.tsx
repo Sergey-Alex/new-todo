@@ -5,15 +5,21 @@ import {AddBox} from "@mui/icons-material";
 type AddItemPropsType = {
     addItemForm: (value: string) => void
 }
-export const AddItemForm = (props: AddItemPropsType) => {
+export const AddItemForm = React.memo((props: AddItemPropsType) => {
+    console.log('AddItemForm')
     const [title, setTitle] = useState('')
     const [error, setError] = useState<null | string>(null)
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setError(null)
+        if (error !== null){
+            setError(null)
+        }
         setTitle(e.target.value)
     }
     const onPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
+            if (error !== null){
+                setError(null)
+            }
             addTaskTitle()
         }
     }
@@ -39,4 +45,4 @@ export const AddItemForm = (props: AddItemPropsType) => {
         <IconButton  onClick={addTaskTitle}><AddBox/></IconButton>
         {/*{error && <div className='error-message'>{error}</div>}*/}
     </div>
-}
+})

@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import {FilterValueType, TaskType} from "./AppWithRedux";
 import {AddItemForm} from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
@@ -22,7 +22,7 @@ type PropsType = {
 
 
 const Todolist = (props: PropsType) => {
-
+    console.log('Todolist')
     const onAllClickHandler = () => {
         props.changeFilter(props.todolistId,'all')
     }
@@ -36,9 +36,9 @@ const Todolist = (props: PropsType) => {
         props.deleteTodolist(props.todolistId)
     };
 
-    const addTask = (title: string) => {
+    const addTask = useCallback((title: string) => {
         props.addTask(props.todolistId, title)
-    }
+    },[])
     const changeTodolistTitle = (value: string) => {
         props.changeTodolistTitle(props.todolistId, value)
     }

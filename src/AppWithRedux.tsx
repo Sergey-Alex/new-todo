@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import Todolist from "./Todolist";
 
 import './App.css'
@@ -41,38 +41,38 @@ const App = () => {
     const todolists = useSelector<AppRootStateType, TodoListType[]>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
 
-    const removeTask = (todolistId: string, taskId: string) => {
+    const removeTask = useCallback((todolistId: string, taskId: string) => {
         dispatch(RemoveTaskAC(todolistId, taskId))
-    }
+    },[])
 
-    const changeFilter = (todolistId: string, filter: FilterValueType) => {
+    const changeFilter = useCallback((todolistId: string, filter: FilterValueType) => {
         dispatch(ChangeTodolistFilterAC(todolistId, filter))
-    }
+    },[])
 
-    const addTask = (todolistId: string, value: string) => {
+    const addTask = useCallback((todolistId: string, value: string) => {
         dispatch(AddTaskAC(todolistId, value))
-    }
+    },[])
 
-    const changeTaskStatus = (todolistId: string, taskId: string, isDone: boolean) => {
+    const changeTaskStatus = useCallback((todolistId: string, taskId: string, isDone: boolean) => {
         dispatch(ChangeTaskStatusAC(todolistId, taskId, isDone))
-    }
+    },[])
 
-    const changeTaskTitle = (todolistId: string, taskId: string, value: string) => {
+    const changeTaskTitle = useCallback((todolistId: string, taskId: string, value: string) => {
         dispatch(ChangeTaskTitleAC(todolistId, taskId, value))
-    }
+    },[])
 
-    const changeTodolistTitle = (todolistId: string, title: string) => {
+    const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
         dispatch(ChangeTodolistTitleAC(todolistId, title))
-    }
+    },[])
 
-    const addTodolist = (title: string) => {
+    const addTodolist = useCallback((title: string) => {
         const action = AddTodolistAC(title)
         dispatch(action)
-    }
+    },[])
 
-    const deleteTodolist = (todolistId: string) => {
+    const deleteTodolist = useCallback((todolistId: string) => {
         dispatch(RemoveTodolistAC(todolistId))
-    }
+    },[])
 
     return (
         <div>
