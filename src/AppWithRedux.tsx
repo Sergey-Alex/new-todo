@@ -99,15 +99,7 @@ const App = () => {
                 </Grid>
                 <Grid container spacing={3}>
                     {todolists.map((tl) => {
-
                         let taskForTodolist = tasks[tl.id]
-
-                        if (tl.filter === "active") {
-                            taskForTodolist = taskForTodolist.filter(task => !task.isDone)
-                        }
-                        if (tl.filter === "completed") {
-                            taskForTodolist = taskForTodolist.filter(task => task.isDone)
-                        }
                         return <Grid item key={tl.id}>
                             <Paper style={{padding: '10px'}}>
                                 <Todolist title={tl.title}

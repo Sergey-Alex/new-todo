@@ -21,28 +21,35 @@ type PropsType = {
 }
 
 
-const Todolist = (props: PropsType) => {
+const Todolist = React.memo((props: PropsType) => {
     console.log('Todolist')
-    const onAllClickHandler = () => {
-        props.changeFilter(props.todolistId,'all')
-    }
-    const onActiveClickHandler = () => {
-        props.changeFilter(props.todolistId, 'active' )
-    }
-    const onCompletedClickHandler = () => {
-        props.changeFilter( props.todolistId, 'completed')
-    }
-    const todolistRemoveHandler = () => {
+    const onAllClickHandler = useCallback(() => {
+        props.changeFilter(props.todolistId, 'all')
+    }, [props.todolistId])
+    const onActiveClickHandler = useCallback(() => {
+        props.changeFilter(props.todolistId, 'active')
+    }, [props.todolistId])
+    const onCompletedClickHandler = useCallback(() => {
+        props.changeFilter(props.todolistId, 'completed')
+    }, [props.todolistId])
+    const todolistRemoveHandler = useCallback(() => {
         props.deleteTodolist(props.todolistId)
-    };
+    }, [props.todolistId]);
 
     const addTask = useCallback((title: string) => {
         props.addTask(props.todolistId, title)
-    },[])
-    const changeTodolistTitle = (value: string) => {
+    }, [props.addTask, props.todolistId])
+    const changeTodolistTitle = useCallback((value: string) => {
         props.changeTodolistTitle(props.todolistId, value)
-    }
+    },[props.todolistId])
 
+    let taskForTodolist = props.tasks
+    if (props.filter === "active") {
+        taskForTodolist = props.tasks.filter(task => !task.isDone)
+    }
+    if (props.filter === "completed") {
+        taskForTodolist = props.tasks.filter(task => task.isDone)
+    }
 
     return (
         <div>
@@ -53,7 +60,7 @@ const Todolist = (props: PropsType) => {
             <AddItemForm addItemForm={addTask}/>
             <ul>
                 {
-                    props.tasks.map(task => {
+                    taskForTodolist.map(task => {
 
                         const removeHandler = () => props.removeTask(props.todolistId, task.id)
                         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
@@ -78,25 +85,25 @@ const Todolist = (props: PropsType) => {
             </ul>
             <div>
                 <Button variant={props.filter === 'all' ? 'outlined' : 'text'}
-                        color = 'inherit'
+                        color='inherit'
                         onClick={onAllClickHandler}>All
                 </Button>
                 <Button variant={props.filter === 'active' ? 'outlined' : 'text'}
                         onClick={onActiveClickHandler}
-                        color = "primary"
+                        color="primary"
 
                 >
                     Active
                 </Button>
                 <Button variant={props.filter === 'completed' ? 'outlined' : 'text'}
-                        color = 'secondary'
+                        color='secondary'
                         onClick={onCompletedClickHandler}>Completed
                 </Button>
             </div>
         </div>
     );
 
-}
+})
 export default Todolist;
 
 
