@@ -1,6 +1,6 @@
 import {TaskType} from "./AppWithRedux";
 import React, {ChangeEvent, useCallback} from "react";
-import EditableSpan from "./EditableSpan";
+import {EditableSpan} from "./EditableSpan";
 import {Checkbox, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 
