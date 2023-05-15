@@ -1,9 +1,10 @@
-import React, {ChangeEvent, useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {FilterValueType, TaskType} from "./AppWithRedux";
 import {AddItemForm} from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
-import {Button, Checkbox, IconButton} from '@mui/material';
+import {Button, IconButton} from '@mui/material';
 import {Delete} from "@mui/icons-material";
+import {Task} from "./Task";
 
 
 type PropsType = {
@@ -60,27 +61,14 @@ const Todolist = React.memo((props: PropsType) => {
             <AddItemForm addItemForm={addTask}/>
             <ul>
                 {
-                    taskForTodolist.map(task => {
-
-                        const removeHandler = () => props.removeTask(props.todolistId, task.id)
-                        const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-                            props.changeTaskStatus(props.todolistId, task.id, e.currentTarget.checked)
-                        }
-                        const changeTaskTitle = (value: string) => {
-                            props.changeTaskTitle(props.todolistId, task.id, value)
-                        }
-
-                        return (
-                            <span key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                <EditableSpan title={task.title} onChangeValue={changeTaskTitle}/>
-                                <IconButton onClick={removeHandler}><Delete/>️</IconButton>
-                                <Checkbox
-                                    color='primary'
-                                    checked={task.isDone}
-                                    onChange={changeTaskStatus}/>
-                            </span>
-                        )
-                    })
+                    taskForTodolist.map(task => <Task
+                        removeTask={props.removeTask}
+                        todolistId={props.todolistId}
+                        changeTaskStatus={props.changeTaskStatus}
+                        task={task}
+                        changeTaskTitle={props.changeTaskTitle}
+                        key={task.id} />
+                    )
                 }
             </ul>
             <div>
@@ -105,5 +93,4 @@ const Todolist = React.memo((props: PropsType) => {
 
 })
 export default Todolist;
-
 

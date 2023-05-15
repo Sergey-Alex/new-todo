@@ -1,6 +1,5 @@
 import {v1} from "uuid";
 import {AddTodolistAC, RemoveTodolistAC} from "./todolistsReducers";
-import {useState} from "react";
 import {todolistId1, todolistId2} from "./todolistsReducers";
 
 export const ADD_TASK = 'ADD_TASK'
@@ -55,6 +54,11 @@ export const taskReducers = (state: TaskStateType = InitialTaskState , action: A
             const stateCopy = {...state}
                 stateCopy[action.todolistId] = []
             return  stateCopy
+        case CHANGE_TASK_TITLE:
+            return {
+                ...state, [action.todolistId]:state[action.todolistId].map(task => task.id === action.taskId
+                    ? {...task, title: action.title} : task)
+            }
         case "REMOVE-TODOLIST":
             const copyState = {...state}
             delete copyState[action.id]
