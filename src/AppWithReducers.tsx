@@ -30,7 +30,7 @@
 // export type TaskType = {
 //     id: string
 //     title: string
-//     isDone: boolean
+//     status: TaskStatuses
 // }
 //
 // export type TaskStateType = {
@@ -73,7 +73,7 @@
 //         dispatchTasks(AddTaskAC(todolistId, value))
 //     }
 //
-//     const changeTaskStatus = (todolistId: string, taskId: string, isDone: boolean) => {
+//     const changeTaskStatus = (todolistId: string, taskId: string, status: TaskStatuses) => {
 //         dispatchTasks(ChangeTaskStatusAC(todolistId,taskId,isDone))
 //     }
 //

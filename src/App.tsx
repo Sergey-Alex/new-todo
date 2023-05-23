@@ -18,7 +18,7 @@
 // export type TaskType = {
 //     id: string
 //     title: string
-//     isDone: boolean
+//     status: TaskStatuses
 // }
 //
 // export type TaskStateType = {
@@ -59,7 +59,7 @@
 //         setTasks({...tasks, [todolistId]: [task, ...tasks[todolistId]]})
 //     }
 //
-//     const changeTaskStatus = (todolistId: string, taskId: string, isDone: boolean) => {
+//     const changeTaskStatus = (todolistId: string, taskId: string, status: TaskStatuses) => {
 //         setTasks({...tasks, [todolistId]: [...tasks[todolistId]].map(t => t.id === taskId ? {...t, isDone} : t)})
 //     }
 //

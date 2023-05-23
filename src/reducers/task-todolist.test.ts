@@ -1,17 +1,19 @@
 import {taskReducers, TaskStateType} from "./task-reducers";
 import {AddTodolistAC, RemoveTodolistAC} from "./todolistsReducers";
+import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
+
 
 test('new array should be added when new todolist is added', () => {
     const startState: TaskStateType = {
         'todolistId1': [
-            {id: '1', title: 'CSS', isDone: false},
-            {id: '2', title: 'JS', isDone: true},
-            {id: '3', title: 'React', isDone: false}
+            {id: '1', title: 'CSS', status: TaskStatuses.New, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'},
+            {id: '2', title: 'JS', status: TaskStatuses.Completed, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'},
+            {id: '3', title: 'React', status: TaskStatuses.Completed, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'}
         ],
         'todolistId2': [
-            {id: '1', title: 'bread', isDone: false},
-            {id: '2', title: 'milk', isDone: true},
-            {id: '3', title: 'tea', isDone: false}
+            {id: '1', title: 'bread',  status: TaskStatuses.Completed, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId2'},
+            {id: '2', title: 'milk', status: TaskStatuses.Completed, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId2'},
+            {id: '3', title: 'tea', status: TaskStatuses.Completed, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId2'}
         ]
     }
 
@@ -32,14 +34,14 @@ test('new array should be added when new todolist is added', () => {
 test('property with todolistId should be deleted', () => {
     const startState: TaskStateType = {
         'todolistId1': [
-            {id: '1', title: 'CSS', isDone: false},
-            {id: '2', title: 'JS', isDone: true},
-            {id: '3', title: 'React', isDone: false}
+            {id: '1', title: 'CSS',  status: TaskStatuses.Completed, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'},
+            {id: '2', title: 'JS',  status: TaskStatuses.Completed, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'},
+            {id: '3', title: 'React', status: TaskStatuses.Completed, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'}
         ],
         'todolistId2': [
-            {id: '1', title: 'bread', isDone: false},
-            {id: '2', title: 'milk', isDone: true},
-            {id: '3', title: 'tea', isDone: false}
+            {id: '1', title: 'bread',status: TaskStatuses.Completed, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'},
+            {id: '2', title: 'milk', status: TaskStatuses.New, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'},
+            {id: '3', title: 'tea',status: TaskStatuses.New, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'}
         ]
     }
 
