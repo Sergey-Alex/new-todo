@@ -40,16 +40,16 @@ type ResponseTodolistType<D> = {
 
 export type TaskType = {
     description: string
-    title: string
-    completed: boolean
-    status: TaskStatuses
-    priority: TaskPriorities
-    startDate: string
-    deadline: string
-    id: string
-    todoListId: string
-    order: number
     addedDate: string
+    todolistId: string
+    id: string
+    title: string
+    priority: TaskPriorities
+    deadline: string
+    startDate: string;
+    status: TaskStatuses
+    order: number
+    completed: boolean
 }
 
 type GetTaskResponseType = {

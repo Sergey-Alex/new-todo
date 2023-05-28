@@ -12,19 +12,19 @@ const rootReducer = combineReducers({
     todolists: todolistReducers
 })
 
-const initialGlobalState = {
+const initialGlobalState: AppRootStateType = {
     todolists: [
-        {id: "todolistId1", title: "What to learn", filter: "all"},
-        {id: "todolistId2", title: "What to buy", filter: "all"}
+        {id: "todolistId1", title: "What to learn", filter: "all", addedDate: '', order: 0},
+        {id: "todolistId2", title: "What to buy", filter: "all", addedDate: '', order: 0}
     ] ,
     tasks: {
         ["todolistId1"]: [
-            {id: v1(), title: "HTML&CSS", status: TaskStatuses.New, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'},
-            {id: v1(), title: "JS", status: TaskStatuses.New, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId1'}
+            {id: v1(), title: "HTML&CSS", status: TaskStatuses.New, description: '', addedDate: '', startDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, todolistId: 'todolistId1',completed: false},
+            {id: v1(), title: "JS", status: TaskStatuses.New, description: '', addedDate: '', startDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, todolistId: 'todolistId1', completed: false}
         ],
         ["todolistId2"]: [
-            {id: v1(), title: "Milk", status: TaskStatuses.New, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId2'},
-            {id: v1(), title: "React Book", status: TaskStatuses.New, description: '', addedDate: '', startDate: '', completed: false, deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId2'}
+            {id: v1(), title: "Milk", status: TaskStatuses.New, description: '', addedDate: '', startDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, todolistId: 'todolistId2', completed: false},
+            {id: v1(), title: "React Book", status: TaskStatuses.New, description: '', addedDate: '', startDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, todolistId: 'todolistId2', completed: false}
         ]
     }
 };

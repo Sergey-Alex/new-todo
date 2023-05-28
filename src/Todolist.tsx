@@ -61,7 +61,7 @@ const Todolist = React.memo((props: PropsType) => {
             <AddItemForm addItemForm={addTask}/>
             <ul>
                 {
-                    taskForTodolist.map(task => <Task
+                    taskForTodolist?.map(task => <Task
                         removeTask={props.removeTask}
                         todolistId={props.todolistId}
                         changeTaskStatus={props.changeTaskStatus}

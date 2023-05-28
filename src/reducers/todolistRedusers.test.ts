@@ -1,4 +1,4 @@
-import {FilterValueType, TodolistDomainType, todolistReducers} from './todolistsReducers'
+import {FilterValueType, setTodolistAC, TodolistDomainType, todolistReducers} from './todolistsReducers'
 import {v1} from 'uuid'
 
 let todolistId1: string
@@ -52,4 +52,11 @@ test('correct filter of todolist should be changed', () => {
     const endState = todolistReducers(startState, action)
     expect(endState[0].filter).toBe('all')
     expect(endState[1].filter).toBe(newFilter)
+})
+test('todolist set to the state with API', () => {
+    const action = setTodolistAC(startState)
+
+    const endState = todolistReducers([], action)
+
+    expect(endState.length).toBe(2)
 })
