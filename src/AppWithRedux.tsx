@@ -13,7 +13,12 @@ import {
     RemoveTodolistAC,
     TodolistDomainType,
 } from "./reducers/todolistsReducers";
-import {AddTaskAC, ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC} from "./reducers/task-reducers";
+import {
+    addTaskTC,
+    ChangeTaskStatusAC,
+    ChangeTaskTitleAC, ChangeTaskTitleTC,
+    deleteTaskTC,
+} from "./reducers/task-reducers";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./reducers/store";
 import {TaskStatuses, TaskType} from "./api/todolist-api";
@@ -32,23 +37,23 @@ const App = () => {
     }, [])
 
     const removeTask = useCallback((todolistId: string, taskId: string) => {
-        dispatch(RemoveTaskAC(todolistId, taskId))
+        dispatch(deleteTaskTC({todolistId, taskId}))
     },[])
 
     const changeFilter = useCallback((todolistId: string, filter: FilterValueType) => {
         dispatch(ChangeTodolistFilterAC(todolistId, filter))
     },[])
 
-    const addTask = useCallback((todolistId: string, value: string) => {
-        dispatch(AddTaskAC(todolistId, value))
+    const addTask = useCallback((todolistId: string, title: string) => {
+        dispatch(addTaskTC({todolistId, title}))
     },[])
 
     const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
         dispatch(ChangeTaskStatusAC(todolistId, taskId, status))
     },[])
 
-    const changeTaskTitle = useCallback((todolistId: string, taskId: string, value: string) => {
-        dispatch(ChangeTaskTitleAC(todolistId, taskId, value))
+    const changeTaskTitle = useCallback((todolistId: string, taskId: string, title: string) => {
+        dispatch(ChangeTaskTitleTC({todolistId, taskId, title}))
     },[])
 
     const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
