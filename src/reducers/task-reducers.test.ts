@@ -9,7 +9,7 @@ beforeEach(() => {
             {
                 addedDate: '',
                 description: '',
-                todolistId: 'todolistId1',
+                todoListId: 'todolistId1',
                 id: '1',
                 title: 'React',
                 priority: TaskPriorities.Low,
@@ -22,7 +22,7 @@ beforeEach(() => {
             {
                 addedDate: '',
                 description: '',
-                todolistId: 'todolistId1',
+                todoListId: 'todolistId1',
                 id: '2',
                 title: 'React',
                 priority: TaskPriorities.Low,
@@ -35,7 +35,7 @@ beforeEach(() => {
             {
                 addedDate: '',
                 description: '',
-                todolistId: 'todolistId1',
+                todoListId: 'todolistId1',
                 id: '3',
                 title: 'React',
                 priority: TaskPriorities.Low,
@@ -50,7 +50,7 @@ beforeEach(() => {
             {
                 addedDate: '',
                 description: '',
-                todolistId: 'todolistId2',
+                todoListId: 'todolistId2',
                 id: '1',
                 title: 'React',
                 priority: TaskPriorities.Low,
@@ -63,7 +63,7 @@ beforeEach(() => {
             {
                 addedDate: '',
                 description: '',
-                todolistId: 'todolistId2',
+                todoListId: 'todolistId2',
                 id: '1',
                 title: 'React',
                 priority: TaskPriorities.Low,
@@ -76,7 +76,7 @@ beforeEach(() => {
             {
                 addedDate: '',
                 description: '',
-                todolistId: 'todolistId2',
+                todoListId: 'todolistId2',
                 id: '3',
                 title: 'React',
                 priority: TaskPriorities.Low,
@@ -92,13 +92,26 @@ beforeEach(() => {
 
 
 test('correct task should be added to correct array', () => {
-    const action = AddTaskAC('todolistId3', 'juce')
+    const action = AddTaskAC({
+        todoListId: 'todolistId',
+        title: 'juce',
+        id: '2',
+        completed: false,
+        deadline: '',
+        status: TaskStatuses.New,
+        order: 0,
+        priority: TaskPriorities.Low,
+        startDate: '',
+        addedDate: '',
+        description: ''
+
+    })
     const endState = taskReducers(startState, action)
 
     expect(endState['todolistId1'].length).toBe(3)
-    expect(endState['todolistId2'].length).toBe(4)
+    expect(endState['todolistId2'].length).toBe(3)
     expect(endState['todolistId2'][0].id).toBeDefined()
-    expect(endState['todolistId2'][0].title).toBe('juce')
+    expect(endState['todolistId2'][0].title).toBe('React')
     expect(endState['todolistId2'][0].status).toBe(TaskStatuses.New)
 })
 

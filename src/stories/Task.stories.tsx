@@ -22,7 +22,7 @@ const meta: Meta<typeof Task> = {
             order: 0,
             priority: TaskPriorities.Low,
             completed: false,
-            todolistId: 'todolistId1'
+            todoListId: 'todolistId1'
         },
         todolistId: 'todolistId1'
     }
@@ -45,7 +45,7 @@ export const TaskIsDoneStory: Story = {
             order: 0,
             priority: TaskPriorities.Low,
             completed: false,
-            todolistId: 'todolistId1'
+            todoListId: 'todolistId1'
         },
     },
 };
