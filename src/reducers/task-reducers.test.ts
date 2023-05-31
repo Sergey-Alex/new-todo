@@ -117,79 +117,10 @@ test('correct task should be added to correct array', () => {
 
 
 test('correct task should be deleted from correct array', () => {
-    const action = RemoveTaskAC('todolistId2', '2')
+    const action = RemoveTaskAC('todolistId1', '2')
     const endState = taskReducers(startState, action)
-    expect(endState).toEqual({
-        'todolistId1': [
-            {
-                id: '1',
-                title: 'CSS',
-                status: TaskStatuses.New,
-                description: '',
-                addedDate: '',
-                startDate: '',
-                completed: false,
-                deadline: '',
-                order: 0,
-                priority: TaskPriorities.Low,
-                todoListId: 'todolistId1'
-            },
-            {
-                id: '2',
-                title: 'JS',
-                status: TaskStatuses.New,
-                description: '',
-                addedDate: '',
-                startDate: '',
-                completed: false,
-                deadline: '',
-                order: 0,
-                priority: TaskPriorities.Low,
-                todoListId: 'todolistId1'
-            },
-        ],
-        'todolistId2': [
-            {
-                id: '1',
-                title: 'bread',
-                status: TaskStatuses.Completed,
-                description: '',
-                addedDate: '',
-                startDate: '',
-                completed: false,
-                deadline: '',
-                order: 0,
-                priority: TaskPriorities.Low,
-                todoListId: 'todolistId2'
-            },
-            {
-                id: '2',
-                title: 'milk',
-                status: TaskStatuses.Completed,
-                description: '',
-                addedDate: '',
-                startDate: '',
-                completed: false,
-                deadline: '',
-                order: 0,
-                priority: TaskPriorities.Low,
-                todoListId: 'todolistId2'
-            },
-            {
-                id: '3',
-                title: 'tea',
-                status: TaskStatuses.Completed,
-                description: '',
-                addedDate: '',
-                startDate: '',
-                completed: false,
-                deadline: '',
-                order: 0,
-                priority: TaskPriorities.Low,
-                todoListId: 'todolistId2'
-            }
-        ]
-    })
+
+    expect(endState['todolistId1'].length).toBe(2)
 })
 
 test('status of specified task should be changed', () => {

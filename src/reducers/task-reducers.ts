@@ -49,7 +49,7 @@ export const taskReducers = (state: TaskStateType = InitialTaskState, action: Ac
             }
         case "ADD-TODOLIST" :
             const stateCopy = {...state}
-            stateCopy[action.todolistId] = []
+            stateCopy[action.todolist.id] = []
             return stateCopy
         case CHANGE_TASK_TITLE:
             return {
