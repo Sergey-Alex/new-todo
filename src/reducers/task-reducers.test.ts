@@ -1,4 +1,4 @@
-import {AddTaskAC, ChangeTaskStatusAC, RemoveTaskAC, SetTaskAC, taskReducers, TaskStateType} from "./task-reducers";
+import {AddTaskAC, RemoveTaskAC, SetTaskAC, taskReducers, TaskStateType} from "./task-reducers";
 import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
 import {setTodolistAC} from "./todolistsReducers";
 
@@ -123,12 +123,12 @@ test('correct task should be deleted from correct array', () => {
     expect(endState['todolistId1'].length).toBe(2)
 })
 
-test('status of specified task should be changed', () => {
-    const action = ChangeTaskStatusAC('todolistId2', '2', TaskStatuses.New)
-    const endState = taskReducers(startState, action)
-    expect(endState['todolistId2'][1].status).toBe(TaskStatuses.New)
-    expect(endState['todolistId1'][0].status).toBe(TaskStatuses.New)
-})
+// test('status of specified task should be changed', () => {
+//     const action = ChangeTaskStatusAC('todolistId2', '2', TaskStatuses.New)
+//     const endState = taskReducers(startState, action)
+//     expect(endState['todolistId2'][1].status).toBe(TaskStatuses.New)
+//     expect(endState['todolistId1'][0].status).toBe(TaskStatuses.New)
+// })
 test('set todolist, create array task', () => {
 
     const action = setTodolistAC( [

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {todolistApi} from "../api/todolist-api";
+import {TaskPriorities, TaskStatuses, todolistApi} from "../api/todolist-api";
 
 export default {
     title: 'API'
@@ -120,7 +120,8 @@ export const UpdateTaskTitle = () => {
     const [title, setTitle] = useState<string>('')
     const [taskId, setTaskId] = useState<string>('')
     const changeTaskTitle = () => {
-        todolistApi.updateTaskTitle(todolistId, taskId, title).then(res => setState(res))
+
+        todolistApi.updateTask(todolistId, taskId, {title: 'fdgdfg', status: TaskStatuses.New, startDate: '', priority: TaskPriorities.Hi, description: '', deadline: '',completed: false}).then(res => setState(res))
     }
     return <div>{JSON.stringify(state)}
         <input placeholder='todolistId' value={todolistId} onChange={(e) => setTodolistId(e.currentTarget.value)}/>
