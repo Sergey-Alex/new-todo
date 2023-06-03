@@ -1,15 +1,18 @@
 import React from 'react';
 import './App.css'
-import {AppBar, Button, Container, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, Container, IconButton, LinearProgress, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import {TaskType} from "../api/todolist-api";
 import {TodolistsList} from "../features/TodolistsLists/TodolistsList";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "./store";
+import {RequestStatusType} from "./app-reducer";
 
 
-export type TaskStateType = {
-    [todolistId: string]: TaskType[]
-}
+
+
+
 const App = () => {
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     return (
         <div>
             <AppBar position="static">
@@ -28,14 +31,15 @@ const App = () => {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
+                {status === 'loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed>
                 <TodolistsList/>
             </Container>
         </div>
     )
-        ;
-};
+
+}
 
 export default App;
 

@@ -6,11 +6,15 @@ import { taskReducers } from '../features/TodolistsLists/Todolist/Tasks/task-red
 import {todolistReducers} from "../features/TodolistsLists/Todolist/todolistsReducers";
 import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
+import {appReducer} from "../app/app-reducer";
+
 
 const rootReducer = combineReducers({
     tasks: taskReducers,
-    todolists: todolistReducers
+    todolists: todolistReducers,
+    app: appReducer
 })
+
 
 const initialGlobalState: AppRootStateType = {
     todolists: [
@@ -26,7 +30,11 @@ const initialGlobalState: AppRootStateType = {
             {id: v1(), title: "Milk", status: TaskStatuses.New, description: '', addedDate: '', startDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId2', completed: false},
             {id: v1(), title: "React Book", status: TaskStatuses.New, description: '', addedDate: '', startDate: '', deadline: '', order: 0, priority: TaskPriorities.Low, todoListId: 'todolistId2', completed: false}
         ]
+    },
+    app: {
+        status: 'idle'
     }
+
 };
 
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState as AppRootStateType);

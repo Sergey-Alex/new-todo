@@ -11,12 +11,14 @@ import {
     TodolistDomainType
 } from "./Todolist/todolistsReducers";
 import {addTaskTC, deleteTaskTC, UpdateTaskTC} from "./Todolist/Tasks/task-reducers";
-import {TaskStatuses} from "../../api/todolist-api";
+import {TaskStatuses, TaskType} from "../../api/todolist-api";
 import {Grid, Paper} from "@mui/material";
 import {AddItemForm} from "../../components/AddItemForm";
 import Todolist from "./Todolist/Todolist";
-import {TaskStateType} from "../../app/App";
 
+export type TaskStateType = {
+    [todolistId: string]: TaskType[]
+}
 export const TodolistsList: React.FC = () => {
     const dispatch = useAppDispatch();
     const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
