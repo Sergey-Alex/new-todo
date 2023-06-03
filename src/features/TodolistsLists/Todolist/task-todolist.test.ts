@@ -1,6 +1,6 @@
-import {taskReducers, TaskStateType} from "./task-reducers";
+import {taskReducers, TaskStateType} from "./Tasks/task-reducers";
 import {AddTodolistAC, RemoveTodolistAC} from "./todolistsReducers";
-import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
+import {TaskPriorities, TaskStatuses} from "../../../api/todolist-api";
 
 
 test('new array should be added when new todolist is added', () => {

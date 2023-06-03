@@ -1,6 +1,6 @@
-import {todolistApi, TodoListType} from "../api/todolist-api";
+import {todolistApi, TodoListType} from "../../../api/todolist-api";
 import {Dispatch} from "redux";
-import {AppActionsType, AppThunk} from "./store";
+import {AppActionsType, AppThunk} from "../../../app/store";
 
 
 export const REMOVE_TODOLIST = 'REMOVE-TODOLIST'
@@ -45,7 +45,6 @@ export const todolistReducers = (state: TodolistDomainType[] = InitialTodolistSt
 export const setTodolistAC = (todolist: TodoListType[]) => {
     return {type: SET_TODOLIST, todolist} as const
 }
-
 export const RemoveTodolistAC = (todolistId: string) => {
     return {type: REMOVE_TODOLIST, id: todolistId} as const
 }
