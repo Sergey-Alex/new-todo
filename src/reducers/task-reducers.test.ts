@@ -93,7 +93,7 @@ beforeEach(() => {
 
 test('correct task should be added to correct array', () => {
     const action = AddTaskAC({
-        todoListId: 'todolistId',
+        todoListId: 'todolistId1',
         title: 'juce',
         id: '2',
         completed: false,
@@ -104,11 +104,10 @@ test('correct task should be added to correct array', () => {
         startDate: '',
         addedDate: '',
         description: ''
-
     })
     const endState = taskReducers(startState, action)
 
-    expect(endState['todolistId1'].length).toBe(3)
+    expect(endState['todolistId1'].length).toBe(4)
     expect(endState['todolistId2'].length).toBe(3)
     expect(endState['todolistId2'][0].id).toBeDefined()
     expect(endState['todolistId2'][0].title).toBe('React')
