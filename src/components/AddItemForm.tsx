@@ -1,23 +1,26 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {IconButton, TextField} from "@mui/material";
 import {AddBox} from "@mui/icons-material";
+import {RequestStatusType} from "../app/app-reducer";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../app/store";
 
 type AddItemPropsType = {
     addItemForm: (value: string) => void
 }
 export const AddItemForm = React.memo((props: AddItemPropsType) => {
-    console.log('AddItemForm')
+    const entityStatus = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const [title, setTitle] = useState('')
     const [error, setError] = useState<null | string>(null)
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (error !== null){
+        if (error !== null) {
             setError(null)
         }
         setTitle(e.target.value)
     }
     const onPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            if (error !== null){
+            if (error !== null) {
                 setError(null)
             }
             addTaskTitle()
@@ -42,7 +45,6 @@ export const AddItemForm = React.memo((props: AddItemPropsType) => {
             label='Title'
             helperText={error}
         />
-        <IconButton  onClick={addTaskTitle}><AddBox/></IconButton>
-        {/*{error && <div className='error-message'>{error}</div>}*/}
+        <IconButton disabled={entityStatus === 'loading'}  onClick={addTaskTitle}><AddBox/></IconButton>
     </div>
 })

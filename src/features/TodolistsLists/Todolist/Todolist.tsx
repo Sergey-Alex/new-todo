@@ -7,8 +7,9 @@ import {Task} from "./Tasks/Task";
 import {TaskStatuses, TaskType} from "../../../api/todolist-api";
 import {FilterValueType} from "./todolistsReducers";
 import {fetchTaskTC} from "./Tasks/task-reducers";
-import {useAppDispatch} from "../../../app/store";
+import {AppRootStateType, useAppDispatch} from "../../../app/store";
 import {RequestStatusType} from "../../../app/app-reducer";
+import {useSelector} from "react-redux";
 
 
 type PropsType = {
@@ -23,15 +24,16 @@ type PropsType = {
     deleteTodolist: (todolistId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, value: string) => void
     changeTodolistTitle: (todolistId: string, title: string) => void
-    entityStatus: RequestStatusType
+
 }
 
 
 const Todolist = React.memo((props: PropsType) => {
     const dispatch = useAppDispatch()
-    useEffect(()=> {
+    const entityStatus = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+    useEffect(() => {
         dispatch(fetchTaskTC(props.todolistId))
-    },[])
+    }, [])
 
     const onAllClickHandler = useCallback(() => {
         props.changeFilter(props.todolistId, 'all')
@@ -51,7 +53,7 @@ const Todolist = React.memo((props: PropsType) => {
     }, [props.addTask, props.todolistId])
     const changeTodolistTitle = useCallback((value: string) => {
         props.changeTodolistTitle(props.todolistId, value)
-    },[props.todolistId])
+    }, [props.todolistId])
 
     let taskForTodolist = props.tasks
     if (props.filter === "active") {
@@ -67,8 +69,9 @@ const Todolist = React.memo((props: PropsType) => {
                 <EditableSpan title={props.title} onChangeValue={changeTodolistTitle}/>
             </h3>
             <div>
-                <IconButton disabled={props.entityStatus === "loading"} onClick={todolistRemoveHandler}><Delete/></IconButton>
-                <AddItemForm addItemForm={addTask}/>
+                <IconButton disabled={entityStatus === "loading"}
+                            onClick={todolistRemoveHandler}><Delete/></IconButton>
+                <AddItemForm  addItemForm={addTask}/>
             </div>
 
             <ul>
@@ -79,7 +82,7 @@ const Todolist = React.memo((props: PropsType) => {
                         changeTaskStatus={props.changeTaskStatus}
                         task={task}
                         changeTaskTitle={props.changeTaskTitle}
-                        key={task.id} />
+                        key={task.id}/>
                     )
                 }
             </ul>

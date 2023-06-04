@@ -24,6 +24,7 @@ export const TodolistsList: React.FC = () => {
     const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
 
+
     useEffect(() => {
         dispatch(fetchTodolistTC())
     }, [])
@@ -70,7 +71,6 @@ export const TodolistsList: React.FC = () => {
                 return <Grid item key={tl.id}>
                     <Paper style={{padding: '10px'}}>
                         <Todolist title={tl.title}
-                                  entityStatus = {tl.entityStatus}
                                   todolistId={tl.id}
                                   tasks={taskForTodolist}
                                   removeTask={removeTask}

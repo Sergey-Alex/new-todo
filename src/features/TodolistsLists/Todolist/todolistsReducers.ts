@@ -78,6 +78,7 @@ export const fetchTodolistTC = (): AppThunk => (dispatch: Dispatch<AppActionsTyp
 
 export const deleteTodolistTC = (todoListId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
+    dispatch(changeTodolistEntityStatusAC(todoListId, 'loading'))
     dispatch(changeTodolistEntityStatusAC(todoListId,'loading'))
     todolistApi.deleteTodolist(todoListId).then(() => {
         dispatch(RemoveTodolistAC(todoListId))
