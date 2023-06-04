@@ -1,7 +1,7 @@
 import {AddTodolistAC, RemoveTodolistAC, setTodolistAC} from "../todolistsReducers";
 import {TaskPriorities, TaskStatuses, TaskType, todolistApi, UpdateTaskModelType} from "../../../../api/todolist-api";
 import {AppRootStateType, AppThunk} from "../../../../app/store";
-import {setAppStatusAC} from "../../../../app/app-reducer";
+import {setAppError, setAppStatusAC} from "../../../../app/app-reducer";
 
 export const ADD_TASK = 'ADD_TASK'
 export const REMOVE_TASK = 'REMOVE_TASK'
@@ -92,8 +92,18 @@ export type CreateTaskTCArgs = { todolistId: string, title: string }
 export const addTaskTC = ({todolistId, title}: CreateTaskTCArgs): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     todolistApi.createTask(todolistId, title).then((res) => {
-        dispatch(AddTaskAC(res.data.data.item))
-        dispatch(setAppStatusAC('succeeded'))
+        if (res.data.resultCode === 0) {
+            dispatch(AddTaskAC(res.data.data.item))
+            dispatch(setAppStatusAC('succeeded'))
+        } else {
+            if (res.data.messages.length){
+                dispatch(setAppError(res.data.messages[0]))
+            } else {
+                dispatch(setAppError('some error'))
+                dispatch(setAppStatusAC('failed'))
+            }
+        }
+
     })
 }
 export type UpdateTaskModelDomainType = {
