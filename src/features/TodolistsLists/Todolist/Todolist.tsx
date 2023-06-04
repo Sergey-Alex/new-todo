@@ -71,7 +71,7 @@ const Todolist = React.memo((props: PropsType) => {
             <div>
                 <IconButton disabled={entityStatus === "loading"}
                             onClick={todolistRemoveHandler}><Delete/></IconButton>
-                <AddItemForm  addItemForm={addTask}/>
+                <AddItemForm addItemForm={addTask}/>
             </div>
 
             <ul>

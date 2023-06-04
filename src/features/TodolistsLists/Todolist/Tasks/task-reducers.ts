@@ -96,15 +96,20 @@ export const addTaskTC = ({todolistId, title}: CreateTaskTCArgs): AppThunk => (d
             dispatch(AddTaskAC(res.data.data.item))
             dispatch(setAppStatusAC('succeeded'))
         } else {
-            if (res.data.messages.length){
+            if (res.data.messages.length) {
                 dispatch(setAppError(res.data.messages[0]))
             } else {
                 dispatch(setAppError('some error'))
-                dispatch(setAppStatusAC('failed'))
+
             }
+            dispatch(setAppStatusAC('failed'))
         }
 
     })
+        .catch((err) => {
+            dispatch(setAppError('Network error'))
+            dispatch(setAppStatusAC('failed'))
+        })
 }
 export type UpdateTaskModelDomainType = {
     title?: string
@@ -138,8 +143,24 @@ export const UpdateTaskTC = (todolistId: string, taskId: string, domainModel: Up
             ...domainModel
         }
         dispatch(setAppStatusAC('loading'))
-        todolistApi.updateTask(todolistId, taskId, apiModel).then(() => {
-            dispatch(UpdateTaskAC(todolistId, taskId, apiModel))
-            dispatch(setAppStatusAC('succeeded'))
+        todolistApi.updateTask(todolistId, taskId, apiModel).then((res) => {
+            if (res.data.resultCode === 0){
+                dispatch(UpdateTaskAC(todolistId, taskId, apiModel))
+                dispatch(setAppStatusAC('succeeded'))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setAppError(res.data.messages[0]))
+                } else {
+                    dispatch(setAppError('some error'))
+
+                }
+                dispatch(setAppStatusAC('failed'))
+            }
+
         })
+            .catch((err) => {
+                dispatch(setAppStatusAC('failed'))
+                dispatch(setAppError(err.messages))
+                dispatch(setAppStatusAC('failed'))
+            })
     }

@@ -19,11 +19,11 @@ import Todolist from "./Todolist/Todolist";
 export type TaskStateType = {
     [todolistId: string]: TaskType[]
 }
+
 export const TodolistsList: React.FC = () => {
     const dispatch = useAppDispatch();
     const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
-
 
     useEffect(() => {
         dispatch(fetchTodolistTC())

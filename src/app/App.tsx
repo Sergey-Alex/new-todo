@@ -10,8 +10,6 @@ import {ErrorSnackbar} from "../components/SnackBar";
 
 
 
-
-
 const App = () => {
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     return (

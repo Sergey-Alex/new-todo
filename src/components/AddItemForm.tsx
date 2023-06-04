@@ -37,6 +37,7 @@ export const AddItemForm = React.memo((props: AddItemPropsType) => {
 
     return <div>
         <TextField
+            disabled={entityStatus === 'loading'}
             variant='outlined'
             value={title}
             onChange={onChangeHandler}
