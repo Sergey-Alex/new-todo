@@ -1,7 +1,8 @@
 import {AddTodolistAC, RemoveTodolistAC, setTodolistAC} from "../todolistsReducers";
 import {TaskPriorities, TaskStatuses, TaskType, todolistApi, UpdateTaskModelType} from "../../../../api/todolist-api";
 import {AppRootStateType, AppThunk} from "../../../../app/store";
-import {setAppError, setAppStatusAC} from "../../../../app/app-reducer";
+import {setAppStatusAC} from "../../../../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../../../utils/error-utils";
 
 export const ADD_TASK = 'ADD_TASK'
 export const REMOVE_TASK = 'REMOVE_TASK'
@@ -96,19 +97,12 @@ export const addTaskTC = ({todolistId, title}: CreateTaskTCArgs): AppThunk => (d
             dispatch(AddTaskAC(res.data.data.item))
             dispatch(setAppStatusAC('succeeded'))
         } else {
-            if (res.data.messages.length) {
-                dispatch(setAppError(res.data.messages[0]))
-            } else {
-                dispatch(setAppError('some error'))
-
-            }
-            dispatch(setAppStatusAC('failed'))
+            handleServerAppError(res.data, dispatch)
         }
 
     })
         .catch((err) => {
-            dispatch(setAppError('Network error'))
-            dispatch(setAppStatusAC('failed'))
+            handleServerNetworkError(err, dispatch)
         })
 }
 export type UpdateTaskModelDomainType = {
@@ -148,19 +142,11 @@ export const UpdateTaskTC = (todolistId: string, taskId: string, domainModel: Up
                 dispatch(UpdateTaskAC(todolistId, taskId, apiModel))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
-                if (res.data.messages.length) {
-                    dispatch(setAppError(res.data.messages[0]))
-                } else {
-                    dispatch(setAppError('some error'))
-
-                }
-                dispatch(setAppStatusAC('failed'))
+                handleServerAppError(res.data, dispatch)
             }
 
         })
             .catch((err) => {
-                dispatch(setAppStatusAC('failed'))
-                dispatch(setAppError(err.messages))
-                dispatch(setAppStatusAC('failed'))
+                handleServerNetworkError(err, dispatch)
             })
     }
