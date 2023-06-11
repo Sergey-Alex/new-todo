@@ -1,7 +1,7 @@
 import {todolistApi, TodoListType} from "../../../api/todolist-api";
-import {Dispatch} from "redux";
-import {AppActionsType, AppThunk} from "../../../app/store";
+import {AppThunk} from "../../../app/store";
 import {RequestStatusType, setAppStatusAC} from "../../../app/app-reducer";
+import {handleServerNetworkError} from "../../../utils/error-utils";
 
 
 export const REMOVE_TODOLIST = 'REMOVE-TODOLIST'
@@ -68,11 +68,13 @@ export const changeTodolistEntityStatusAC  = (id: string, status: RequestStatusT
     return {type: 'CHANGE-TODOLIST-ENTITY-STATUS', id , status} as const
 }
 
-export const fetchTodolistTC = (): AppThunk => (dispatch: Dispatch<AppActionsType>) => {
+export const fetchTodolistTC = (): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     todolistApi.getTodolistAll().then(res => {
         dispatch(setTodolistAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
+    }).catch(err => {
+        handleServerNetworkError(err, dispatch)
     })
 }
 

@@ -26,13 +26,13 @@ export const todolistApi = {
         return instance.get<GetTaskResponseType>(`todo-lists/${todolistId}/tasks`)
     },
     deleteTask(todolistId: string, taskId: string) {
-        return instance.delete<ResponseTaskType>(`todo-lists/${todolistId}/tasks/${taskId}`)
+        return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
     },
     createTask(todolistId: string, title: string) {
-        return instance.post<ResponseTaskType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, {title})
     },
     updateTask(todoListId: string, taskId: string, model: UpdateTaskModelType) {
-        return instance.put<ResponseTaskType<TaskType>>(`todo-lists/${todoListId}/tasks/${taskId}`,model)
+        return instance.put<ResponseType<TaskType>>(`todo-lists/${todoListId}/tasks/${taskId}`,model)
     }
 }
 
@@ -57,12 +57,23 @@ export type TodoListType = {
     order: number
     title: string
 }
-
+//auth Api
+export type LoginParamsType = {
+    email:string
+    password: string
+    rememberMe: boolean
+    capture?: string
+}
+export const authAPI = {
+    login(data: LoginParamsType) {
+        return instance.post<ResponseType<{userId: string}>>('auth/login', data)
+    }
+}
 
 type ResponseTodolistType<D = {}> = {
     resultCode: number
     messages: string[]
-    fieldsErrors: Array<string>
+    fieldsErrors?: Array<string>
     data: D
 }
 
@@ -86,7 +97,7 @@ type GetTaskResponseType = {
     error: string | null
 }
 
-export type ResponseTaskType<D = {}> = {
+export type ResponseType<D = {}> = {
     resultCode: number
     messages: string[]
     data: D

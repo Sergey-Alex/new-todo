@@ -138,13 +138,12 @@ export const UpdateTaskTC = (todolistId: string, taskId: string, domainModel: Up
         }
         dispatch(setAppStatusAC('loading'))
         todolistApi.updateTask(todolistId, taskId, apiModel).then((res) => {
-            if (res.data.resultCode === 0){
+            if (res.data.resultCode === 0) {
                 dispatch(UpdateTaskAC(todolistId, taskId, apiModel))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
             }
-
         })
             .catch((err) => {
                 handleServerNetworkError(err, dispatch)
