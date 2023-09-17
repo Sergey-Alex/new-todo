@@ -11,6 +11,7 @@ import thunkMiddleware, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { useDispatch } from "react-redux";
 import { AppActionStateType, appReducer } from "./app-reducer";
 import { ActionAuthType, authReducer } from "features/Login/auth-reducer";
+import { configureStore } from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
   tasks: taskReducers,
@@ -18,12 +19,10 @@ const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
 });
-
-export const store = legacy_createStore(
-  rootReducer,
-  applyMiddleware(thunkMiddleware),
-);
-export type AppRootStateType = ReturnType<typeof rootReducer>;
+export const store = configureStore({
+  reducer: rootReducer,
+});
+export type AppRootStateType = ReturnType<typeof store.getState>;
 export type AppActionsType =
   | ActionTaskType
   | TodolistActionType

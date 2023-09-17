@@ -5,6 +5,7 @@ import {
   handleServerAppError,
   handleServerNetworkError,
 } from "utils/error-utils";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const IS_LOGIN_IN = "login/IS_LOGIN_IN";
 type StateDefaultType = {
   isLoggedIn: boolean;
@@ -14,7 +15,7 @@ const InitialStateAuth: StateDefaultType = {
   isLoggedIn: false,
 };
 
-export const authReducer = (
+export const _authReducer = (
   state = InitialStateAuth,
   action: ActionAuthType,
 ): StateDefaultType => {
@@ -26,6 +27,19 @@ export const authReducer = (
   }
 };
 
+export const slice = createSlice({
+  name: "auth",
+  initialState: {
+    isLoggedIn: false,
+  },
+  reducers: {
+    setIsLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
+      state.isLoggedIn = true;
+    },
+  },
+});
+
+export const authReducer = slice.reducer;
 export const setIsLoggedInAC = (isLoggedIn: boolean) => {
   return { type: IS_LOGIN_IN, isLoggedIn } as const;
 };
