@@ -15,6 +15,7 @@ import {TaskStatuses, TaskType} from "../../api/todolist-api";
 import {Grid, Paper} from "@mui/material";
 import {AddItemForm} from "../../components/AddItemForm";
 import Todolist from "./Todolist/Todolist";
+import {Navigate} from "react-router-dom";
 
 export type TaskStateType = {
     [todolistId: string]: TaskType[]
@@ -24,6 +25,9 @@ export const TodolistsList: React.FC = () => {
     const dispatch = useAppDispatch();
     const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
+
 
     useEffect(() => {
         dispatch(fetchTodolistTC())
@@ -61,6 +65,9 @@ export const TodolistsList: React.FC = () => {
         dispatch(deleteTodolistTC(todoListId))
     }, [])
 
+    if (!isLoggedIn){
+        return  <Navigate to='/login'/>
+    }
     return <>
         <Grid container style={{padding: '20px'}}>
             <AddItemForm addItemForm={addTodolist}/>

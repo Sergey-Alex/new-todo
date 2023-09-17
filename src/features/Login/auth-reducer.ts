@@ -36,6 +36,18 @@ export const loginTC = (params:LoginParamsType): AppThunk => (dispatch) => {
     }).catch((error) => {
         handleServerNetworkError(error, dispatch)
     })
-
 }
 
+export const logOutTC = (): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    authAPI.logout().then(res => {
+        if (res.data.resultCode === 0){
+            dispatch(setIsLoggedInAC(false))
+            dispatch(setAppStatusAC('succeeded'))
+        } else {
+            handleServerAppError(res.data, dispatch)
+        }
+    }).catch((error) => {
+        handleServerNetworkError(error, dispatch)
+    })
+}
