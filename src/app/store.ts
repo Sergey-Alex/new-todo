@@ -1,15 +1,8 @@
 import { AnyAction, combineReducers } from "redux";
-import {
-  ActionTaskType,
-  taskReducers,
-} from "features/TodolistsLists/Todolist/Tasks/task-reducers";
-import {
-  TodolistActionType,
-  todolistReducers,
-} from "features/TodolistsLists/Todolist/todolistsReducers";
+import { taskReducers } from "features/TodolistsLists/Todolist/Tasks/task-reducers";
+import { todolistReducers } from "features/TodolistsLists/Todolist/todolistsReducers";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { useDispatch } from "react-redux";
-import { AppActionStateType, appReducer } from "./app-reducer";
+import { appReducer } from "./app-reducer";
 import { authReducer } from "features/Login/auth-reducer";
 import { configureStore } from "@reduxjs/toolkit";
 
