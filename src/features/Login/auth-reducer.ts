@@ -6,26 +6,6 @@ import {
   handleServerNetworkError,
 } from "utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-const IS_LOGIN_IN = "login/IS_LOGIN_IN";
-type StateDefaultType = {
-  isLoggedIn: boolean;
-};
-export type ActionAuthType = ReturnType<typeof setIsLoggedInAC>;
-const InitialStateAuth: StateDefaultType = {
-  isLoggedIn: false,
-};
-
-export const _authReducer = (
-  state = InitialStateAuth,
-  action: ActionAuthType,
-): StateDefaultType => {
-  switch (action.type) {
-    case IS_LOGIN_IN:
-      return { ...state, isLoggedIn: action.isLoggedIn };
-    default:
-      return state;
-  }
-};
 
 export const slice = createSlice({
   name: "auth",
@@ -34,15 +14,13 @@ export const slice = createSlice({
   },
   reducers: {
     setIsLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
-      state.isLoggedIn = true;
+      state.isLoggedIn = action.payload.isLoggedIn;
     },
   },
 });
 
 export const authReducer = slice.reducer;
-export const setIsLoggedInAC = (isLoggedIn: boolean) => {
-  return { type: IS_LOGIN_IN, isLoggedIn } as const;
-};
+export const authAction = slice.actions;
 
 export const loginTC =
   (params: LoginParamsType): AppThunk =>
@@ -52,7 +30,7 @@ export const loginTC =
       .login(params)
       .then((res) => {
         if (res.data.resultCode === 0) {
-          dispatch(setIsLoggedInAC(true));
+          dispatch(authAction.setIsLoggedIn({ isLoggedIn: true }));
           dispatch(setAppStatusAC("succeeded"));
         } else {
           handleServerAppError(res.data, dispatch);
@@ -69,7 +47,7 @@ export const logOutTC = (): AppThunk => (dispatch) => {
     .logout()
     .then((res) => {
       if (res.data.resultCode === 0) {
-        dispatch(setIsLoggedInAC(false));
+        dispatch(authAction.setIsLoggedIn({ isLoggedIn: false }));
         dispatch(setAppStatusAC("succeeded"));
       } else {
         handleServerAppError(res.data, dispatch);
