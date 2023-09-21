@@ -30,10 +30,10 @@ type PropsType = {
 };
 
 const Todolist = React.memo((props: PropsType) => {
-  const dispatch = useAppDispatch();
   const entityStatus = useSelector<AppRootStateType, RequestStatusType>(
     (state) => state.app.status,
   );
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchTaskTC(props.todolistId));
   }, []);

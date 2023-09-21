@@ -1,11 +1,6 @@
-import {
-  appReducer,
-  InitialStateType,
-  setAppError,
-  setAppStatusAC,
-} from "./app-reducer";
+import { appAction, AppInitialState, appReducer } from "./app-reducer";
 
-let startState: InitialStateType;
+let startState: AppInitialState;
 
 beforeEach(() => {
   startState = {
@@ -16,10 +11,16 @@ beforeEach(() => {
 });
 
 test("correct error message should be", () => {
-  const endState = appReducer(startState, setAppError("some error"));
+  const endState = appReducer(
+    startState,
+    appAction.setAppError({ error: "some error" }),
+  );
   expect(endState.error).toBe("some error");
 });
 test("correct status message should be set", () => {
-  const endState = appReducer(startState, setAppStatusAC("failed"));
+  const endState = appReducer(
+    startState,
+    appAction.setAppStatus({ status: "failed" }),
+  );
   expect(endState.status).toBe("failed");
 });
