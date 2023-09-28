@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect } from "react";
 import "./App.css";
+import { TodolistsList } from "features/TodolistsList/TodolistsList";
+import { ErrorSnackbar } from "components/ErrorSnackbar/ErrorSnackbar";
+import { useDispatch, useSelector } from "react-redux";
+import { initializeAppTC } from "./app-reducer";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Login } from "features/Login/Login";
+import { logoutTC } from "features/Login/auth-reducer";
 import {
   AppBar,
   Button,
@@ -8,46 +15,33 @@ import {
   IconButton,
   LinearProgress,
   Toolbar,
-  Typography,
+  Typography
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import { TodolistsList } from "features/TodolistsLists/TodolistsList";
-import { useSelector } from "react-redux";
-import { AppRootStateType, useAppDispatch } from "./store";
-import { initializeAppTC, RequestStatusType } from "./app-reducer";
-import { ErrorSnackbar } from "components/SnackBar";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { Login } from "features/Login/Login";
-import { logOutTC } from "features/Login/auth-reducer";
+import { Menu } from "@mui/icons-material";
+import { selectIsLoggedIn } from "features/Login/auth.selectors";
+import { selectIsInitialized, selectStatus } from "app/app.selector";
 
-const App = () => {
-  const status = useSelector<AppRootStateType, RequestStatusType>(
-    (state) => state.app.status,
-  );
-  const initialized = useSelector<AppRootStateType, boolean>(
-    (state) => state.app.isInitialized,
-  );
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(
-    (state) => state.auth.isLoggedIn,
-  );
-  const dispatch = useAppDispatch();
+type PropsType = {
+  demo?: boolean;
+};
+
+function App({ demo = false }: PropsType) {
+  const status = useSelector(selectStatus);
+  const isInitialized = useSelector(selectIsInitialized);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const dispatch = useDispatch<any>();
+
   useEffect(() => {
     dispatch(initializeAppTC());
   }, []);
-  const logOutHandler = useCallback(() => {
-    dispatch(logOutTC());
+
+  const logoutHandler = useCallback(() => {
+    dispatch(logoutTC());
   }, []);
-  if (!initialized) {
+
+  if (!isInitialized) {
     return (
-      <div
-        style={{
-          position: "fixed",
-          top: "30%",
-          textAlign: "center",
-          justifyContent: "center",
-          width: "100%",
-        }}
-      >
+      <div style={{ position: "fixed", top: "30%", textAlign: "center", width: "100%" }}>
         <CircularProgress />
       </div>
     );
@@ -55,24 +49,16 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div>
+      <div className="App">
         <ErrorSnackbar />
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
+            <IconButton edge="start" color="inherit" aria-label="menu">
+              <Menu />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
-            </Typography>
+            <Typography variant="h6">News</Typography>
             {isLoggedIn && (
-              <Button onClick={logOutHandler} color="inherit">
+              <Button color="inherit" onClick={logoutHandler}>
                 Log out
               </Button>
             )}
@@ -81,15 +67,13 @@ const App = () => {
         </AppBar>
         <Container fixed>
           <Routes>
-            <Route path="/" element={<TodolistsList />} />
-            <Route index path="/login" element={<Login />} />
-            <Route path="*" element={<Navigate to="/404" />} />
-            <Route path="/404" element={<h1>404 PAGE NOT FOUND</h1>} />
+            <Route path={"/"} element={<TodolistsList demo={demo} />} />
+            <Route path={"/login"} element={<Login />} />
           </Routes>
         </Container>
       </div>
     </BrowserRouter>
   );
-};
+}
 
 export default App;
