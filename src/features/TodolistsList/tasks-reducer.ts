@@ -15,7 +15,6 @@ import {
   UpdateTaskArg,
   UpdateTaskModelType,
 } from "features/TodolistsList/tasksApi";
-import { todolistsAPI } from "features/TodolistsList/todolistsApi";
 
 const slice = createSlice({
   name: "task",
