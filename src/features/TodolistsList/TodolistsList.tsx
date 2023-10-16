@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { AppRootStateType } from "app/store";
+import { AppRootStateType } from "common/app/store";
 import {
   addTodolistTC,
   changeTodolistTitleTC,
@@ -11,14 +11,15 @@ import {
   TodolistDomainType,
 } from "./todolists-reducer";
 import { taskThunk } from "./tasks-reducer";
-import { TaskStatuses } from "api/todolists-api";
+
 import { Grid, Paper } from "@mui/material";
-import { AddItemForm } from "components/AddItemForm/AddItemForm";
 import { Todolist } from "./Todolist/Todolist";
 import { Navigate } from "react-router-dom";
-import { useAppDispatch } from "hooks/useAppDispatch";
+import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { selectIsLoggedIn } from "features/Login/auth.selectors";
 import { selectTask } from "features/TodolistsList/todolist.selector";
+import { AddItemForm } from "common/components";
+import { TaskStatuses } from "common/enums";
 
 type PropsType = {
   demo?: boolean;
@@ -63,14 +64,14 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
   }, []);
 
   const changeTaskTitle = useCallback(function (
-    id: string,
-    newTitle: string,
+    taskId: string,
+    title: string,
     todolistId: string,
   ) {
     const thunk = taskThunk.updateTask({
-      taskId: id,
+      taskId,
       todolistId,
-      domainModel: { title: newTitle },
+      domainModel: { title },
     });
     dispatch(thunk);
   }, []);

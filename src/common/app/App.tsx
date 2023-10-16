@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from "react";
-import "./App.css";
+import "common/app/App.css";
 import { TodolistsList } from "features/TodolistsList/TodolistsList";
-import { ErrorSnackbar } from "components/ErrorSnackbar/ErrorSnackbar";
+import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar";
 import { useDispatch, useSelector } from "react-redux";
-import { initializeAppTC } from "./app-reducer";
+import { initializeAppTC } from "common/app/app-reducer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Login } from "features/Login/Login";
 import { logoutTC } from "features/Login/auth-reducer";
@@ -15,11 +15,11 @@ import {
   IconButton,
   LinearProgress,
   Toolbar,
-  Typography
+  Typography,
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 import { selectIsLoggedIn } from "features/Login/auth.selectors";
-import { selectIsInitialized, selectStatus } from "app/app.selector";
+import { selectIsInitialized, selectStatus } from "common/app/app.selector";
 
 type PropsType = {
   demo?: boolean;
@@ -41,7 +41,14 @@ function App({ demo = false }: PropsType) {
 
   if (!isInitialized) {
     return (
-      <div style={{ position: "fixed", top: "30%", textAlign: "center", width: "100%" }}>
+      <div
+        style={{
+          position: "fixed",
+          top: "30%",
+          textAlign: "center",
+          width: "100%",
+        }}
+      >
         <CircularProgress />
       </div>
     );
