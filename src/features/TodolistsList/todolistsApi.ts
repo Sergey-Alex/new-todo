@@ -1,5 +1,6 @@
 import { BaseResponseType } from "common/types";
 import { instance } from "common/api/api";
+
 export type TodolistType = {
   id: string;
   title: string;

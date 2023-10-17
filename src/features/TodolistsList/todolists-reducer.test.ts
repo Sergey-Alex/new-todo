@@ -3,6 +3,7 @@ import {
   todolistActions,
   TodolistDomainType,
   todolistReducer,
+  todolistThunk,
 } from "./todolists-reducer";
 import { v1 } from "uuid";
 import { RequestStatusType } from "common/app/app-reducer";
@@ -91,7 +92,10 @@ test("correct filter of todolist should be changed", () => {
   expect(endState[1].filter).toBe(newFilter);
 });
 test("todolists should be added", () => {
-  const action = todolistActions.setTodolists({ todolists: startState });
+  const action = todolistThunk.fetchTodolists.fulfilled(
+    { todolists: startState },
+    "",
+  );
 
   const endState = todolistReducer([], action);
 

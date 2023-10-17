@@ -5,7 +5,10 @@ import {
   handleServerNetworkError,
 } from "utils";
 import { createSlice } from "@reduxjs/toolkit";
-import { todolistActions } from "features/TodolistsList/todolists-reducer";
+import {
+  fetchTodolists,
+  todolistActions,
+} from "features/TodolistsList/todolists-reducer";
 import { ResultCode } from "common/enums";
 import { tasksApi } from "features/TodolistsList/tasksApi";
 import {
@@ -31,7 +34,7 @@ const slice = createSlice({
       .addCase(todolistActions.removeTodolist, (state, action) => {
         delete state[action.payload.id];
       })
-      .addCase(todolistActions.setTodolists, (state, action) => {
+      .addCase(fetchTodolists.fulfilled, (state, action) => {
         action.payload.todolists.forEach((tl: any) => {
           state[tl.id] = [];
         });

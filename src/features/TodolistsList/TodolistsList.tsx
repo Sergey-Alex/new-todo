@@ -4,7 +4,7 @@ import { AppRootStateType } from "common/app/store";
 import {
   addTodolistTC,
   changeTodolistTitleTC,
-  fetchTodolistsTC,
+  fetchTodolists,
   FilterValuesType,
   removeTodolistTC,
   todolistActions,
@@ -38,7 +38,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
     if (demo || !isLoggedIn) {
       return;
     }
-    const thunk = fetchTodolistsTC();
+    const thunk = fetchTodolists();
     dispatch(thunk);
   }, []);
 
