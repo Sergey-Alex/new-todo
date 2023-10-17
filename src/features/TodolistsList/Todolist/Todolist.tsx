@@ -7,8 +7,8 @@ import { useAppDispatch } from "common/hooks/useAppDispatch";
 import { Button, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { AddItemForm } from "common/components";
-import { TaskType } from "../tasksApi";
 import { TaskStatuses } from "common/enums";
+import { TaskType } from "features/TodolistsList/taskApiTypes";
 
 type PropsType = {
   todolist: TodolistDomainType;

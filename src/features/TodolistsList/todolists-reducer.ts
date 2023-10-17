@@ -5,8 +5,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { taskThunk } from "features/TodolistsList/tasks-reducer";
 import { todolistsAPI, TodolistType } from "./todolistsApi";
 
-const initialState: Array<TodolistDomainType> = [];
-
 export const slice = createSlice({
   name: "todolist",
   initialState: [] as TodolistDomainType[],
@@ -55,6 +53,7 @@ export const slice = createSlice({
       return [];
     },
   },
+  extraReducers: (builder) => {},
 });
 export const todolistActions = slice.actions;
 export const todolistReducer = slice.reducer;

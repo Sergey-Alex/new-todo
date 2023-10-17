@@ -7,14 +7,14 @@ import {
 import { createSlice } from "@reduxjs/toolkit";
 import { todolistActions } from "features/TodolistsList/todolists-reducer";
 import { ResultCode } from "common/enums";
+import { tasksApi } from "features/TodolistsList/tasksApi";
 import {
   AddTaskArg,
   DeleteTaskArg,
-  tasksApi,
   TaskType,
   UpdateTaskArg,
   UpdateTaskModelType,
-} from "features/TodolistsList/tasksApi";
+} from "features/TodolistsList/taskApiTypes";
 
 const slice = createSlice({
   name: "task",
@@ -91,11 +91,10 @@ export const removeTask = createAppAsyncThunk<DeleteTaskArg, DeleteTaskArg>(
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     try {
-      const res = await tasksApi.deleteTask({
-        taskId: arg.taskId,
-        todolistId: arg.taskId,
-      });
+      dispatch(appActions.setAppStatus({ status: "loading" }));
+      const res = await tasksApi.deleteTask(arg);
       if (res.data.resultCode === ResultCode.success) {
+        dispatch(appActions.setAppStatus({ status: "succeeded" }));
         return arg;
       } else {
         handleServerAppError(res.data, dispatch);
