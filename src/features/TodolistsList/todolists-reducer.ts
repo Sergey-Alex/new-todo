@@ -65,9 +65,10 @@ export const fetchTodolists = createAppAsyncThunk<{
   todolists: TodolistType[];
 }>("todolist/fetchTodolist", async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
+  dispatch(appActions.setAppStatus({ status: "loading" }));
   try {
-    dispatch(appActions.setAppStatus({ status: "loading" }));
     const res = await todolistsAPI.getTodolists();
+    dispatch(appActions.setAppStatus({ status: "succeeded" }));
     return { todolists: res.data };
   } catch (e) {
     handleServerNetworkError(e, dispatch);

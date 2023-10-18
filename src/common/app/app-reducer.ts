@@ -1,9 +1,11 @@
 import { Dispatch } from "redux";
 
-import { authActions } from "features/Login/auth-reducer";
+import {authActions, authThunk} from "features/Login/auth-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "common/app/store";
 import { authAPI } from "features/Login/authApi";
+import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError} from "../../utils";
+import {ResultCode} from "../enums";
 
 const slice = createSlice({
   name: "app",
@@ -20,6 +22,7 @@ const slice = createSlice({
       state,
       action: PayloadAction<{ status: RequestStatusType }>,
     ) => {
+      console.log(action.payload.status)
       state.status = action.payload.status;
     },
     setAppInitialized: (
@@ -36,13 +39,16 @@ export type AppInitialState = ReturnType<typeof slice.getInitialState>;
 
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed";
 
-export const initializeAppTC = (): AppThunk => (dispatch: Dispatch) => {
-  authAPI.me().then((res) => {
-    if (res.data.resultCode === 0) {
-      dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
-    } else {
-    }
 
-    dispatch(appActions.setAppInitialized({ isInitialized: true }));
-  });
-};
+// export const initializeAppTC = (): AppThunk => (dispatch: Dispatch) => {
+//   authAPI.me().then((res) => {
+//     if (res.data.resultCode === 0) {
+//       dispatch(authActions.setAuth);
+//     } else {
+//
+//     }
+//     dispatch(appActions.setAppInitialized({ isInitialized: true }));
+//   }).finally(() => {
+//     dispatch(appActions.setAppStatus({ status: "succeeded" }));
+//   });
+// };
