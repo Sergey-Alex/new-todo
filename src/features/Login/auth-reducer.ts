@@ -50,26 +50,6 @@ export const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsTyp
     }
 })
 
-// export const loginTC =
-//   (data: LoginParamsType): AppThunk =>
-//   (dispatch) => {
-//     dispatch(appActions.setAppStatus({ status: "loading" }));
-//     authAPI
-//       .login(data)
-//       .then((res) => {
-//         if (res.data.resultCode === 0) {
-//           // dispatch(setIsLoggedInAC(true));
-//           dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
-//           dispatch(appActions.setAppStatus({ status: "succeeded" }));
-//         } else {
-//           handleServerAppError(res.data, dispatch);
-//         }
-//       })
-//       .catch((error) => {
-//         handleServerNetworkError(error, dispatch);
-//       });
-//   };
-
 export const logout = createAppAsyncThunk<{isLoggedIn:boolean}, undefined>
 ('auth/logout', async (_, thunkAPI)=>{
     const {dispatch, rejectWithValue} = thunkAPI

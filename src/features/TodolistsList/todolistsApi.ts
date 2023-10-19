@@ -18,9 +18,11 @@ export const todolistsAPI = {
     );
   },
   deleteTodolist(id: string) {
-    return instance.delete<ResponseType>(`todo-lists/${id}`);
+    return instance.delete<BaseResponseType>(`todo-lists/${id}`);
   },
-  updateTodolist(id: string, title: string) {
-    return instance.put<ResponseType>(`todo-lists/${id}`, { title: title });
+  updateTodolist(arg: UpdateTodolistParamArg) {
+    return instance.put<BaseResponseType>(`todo-lists/${arg.id}`, { title: arg.title });
   },
 };
+
+export type UpdateTodolistParamArg = {id: string, title: string}
