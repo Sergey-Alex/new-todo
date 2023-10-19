@@ -1,10 +1,8 @@
-import { appActions, RequestStatusType } from "common/app/app-reducer";
-import { handleServerNetworkError } from "utils/handleServerNetworkError";
-import { AppThunk } from "common/app/store";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {appActions, RequestStatusType} from "common/app/app-reducer";
+import {handleServerNetworkError} from "utils/handleServerNetworkError";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {todolistsAPI, TodolistType, UpdateTodolistParamArg} from "./todolistsApi";
 import {createAppAsyncThunk, handleServerAppError} from "utils";
-import thunk from "redux-thunk";
 import {ResultCode} from "../../common/enums";
 
 export const slice = createSlice({
