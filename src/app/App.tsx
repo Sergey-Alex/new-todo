@@ -13,8 +13,7 @@ import {
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 import { Login } from "features/auth/ui/login/login";
-import "./App.css";
-import { TodolistsList } from "features/TodolistsList/TodolistsList";
+import { TodolistsList } from "features/TodolistsList/ui/TodolistsList";
 import { ErrorSnackbar } from "common/components";
 import { useActions } from "common/hooks";
 import { selectIsLoggedIn } from "features/auth/model/auth.selectors";
@@ -36,7 +35,14 @@ function App() {
 
   if (!isInitialized) {
     return (
-      <div style={{ position: "fixed", top: "30%", textAlign: "center", width: "100%" }}>
+      <div
+        style={{
+          position: "fixed",
+          top: "30%",
+          textAlign: "center",
+          width: "100%",
+        }}
+      >
         <CircularProgress />
       </div>
     );
