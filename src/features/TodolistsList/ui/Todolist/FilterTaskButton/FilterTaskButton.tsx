@@ -1,0 +1,46 @@
+import { Button } from "@mui/material";
+import React from "react";
+import { useActions } from "common/hooks";
+import {
+  FilterValuesType,
+  TodolistDomainType,
+  todolistsActions,
+} from "features/TodolistsList/model/todolists.reducer";
+
+type FilterTaskButtonProps = {
+  todolist: TodolistDomainType;
+};
+
+export const FilterTaskButton = ({ todolist }: FilterTaskButtonProps) => {
+  const { id, filter } = todolist;
+  const { changeTodolistFilter } = useActions(todolistsActions);
+
+  const changeTodolistFilterHandler = (filter: FilterValuesType) => {
+    changeTodolistFilter({ id, filter });
+  };
+  return (
+    <>
+      <Button
+        variant={filter === "all" ? "outlined" : "text"}
+        onClick={() => changeTodolistFilterHandler("all")}
+        color={"inherit"}
+      >
+        All
+      </Button>
+      <Button
+        variant={filter === "active" ? "outlined" : "text"}
+        onClick={() => changeTodolistFilterHandler("active")}
+        color={"primary"}
+      >
+        Active
+      </Button>
+      <Button
+        variant={filter === "completed" ? "outlined" : "text"}
+        onClick={() => changeTodolistFilterHandler("completed")}
+        color={"secondary"}
+      >
+        Completed
+      </Button>
+    </>
+  );
+};
