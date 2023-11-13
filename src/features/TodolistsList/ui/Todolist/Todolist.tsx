@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect } from "react";
 import { Delete } from "@mui/icons-material";
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { Task } from "features/TodolistsList/ui/Todolist/Task/Task";
 import {
   TodolistDomainType,
-  todolistsActions,
   todolistsThunks,
 } from "features/TodolistsList/model/todolists.reducer";
 import { tasksThunks } from "features/TodolistsList/model/tasks.reducer";
