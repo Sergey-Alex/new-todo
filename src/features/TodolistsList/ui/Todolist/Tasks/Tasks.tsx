@@ -1,4 +1,4 @@
-import { Task } from "features/TodolistsList/ui/Todolist/Task/Task";
+import { Task } from "features/TodolistsList/ui/Todolist/Tasks/Task/Task";
 import React from "react";
 import { TodolistDomainType } from "features/TodolistsList/model/todolists.reducer";
 import { TaskStatuses } from "common/enums";
