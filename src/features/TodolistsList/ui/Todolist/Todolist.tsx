@@ -13,30 +13,30 @@ type PropsType = {
   tasks: TaskType[];
 };
 
-export const Todolist = memo(function (props: PropsType) {
+export const Todolist = memo(({ todolist, tasks }: PropsType) => {
   const { fetchTasks, addTask } = useActions(tasksThunks);
 
   useEffect(() => {
-    fetchTasks(props.todolist.id);
+    fetchTasks(todolist.id);
   }, []);
 
   const addTaskCallback = useCallback(
     (title: string) => {
-      addTask({ title, todolistId: props.todolist.id });
+      return addTask({ title, todolistId: todolist.id }).unwrap();
     },
-    [props.todolist.id],
+    [todolist.id],
   );
 
   return (
     <div>
-      <TodolistTitle todolist={props.todolist} />
+      <TodolistTitle todolist={todolist} />
       <AddItemForm
         addItem={addTaskCallback}
-        disabled={props.todolist.entityStatus === "loading"}
+        disabled={todolist.entityStatus === "loading"}
       />
-      <Tasks todolist={props.todolist} tasks={props.tasks} />
+      <Tasks todolist={todolist} tasks={tasks} />
       <div style={{ paddingTop: "10px" }}>
-        <FilterTaskButton todolist={props.todolist} />
+        <FilterTaskButton todolist={todolist} />
       </div>
     </div>
   );

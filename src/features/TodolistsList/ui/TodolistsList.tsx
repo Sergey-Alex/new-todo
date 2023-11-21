@@ -26,7 +26,7 @@ export const TodolistsList = () => {
   }, []);
 
   const addTodolistCallback = useCallback((title: string) => {
-    addTodolistThunk(title);
+    return addTodolistThunk(title).unwrap();
   }, []);
 
   if (!isLoggedIn) {
@@ -42,7 +42,6 @@ export const TodolistsList = () => {
       <Grid container spacing={3}>
         {todolists.map((tl) => {
           let allTodolistTasks = tasks[tl.id];
-
           return (
             <Grid item key={tl.id}>
               <Paper style={{ padding: "10px" }}>
